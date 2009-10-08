@@ -1,0 +1,33 @@
+useDynLib(ChIPseqR, startScore_pois)
+
+import(methods)
+
+importClassesFrom(Biostrings, XString, XStringSet, XStringViews)
+importClassesFrom(IRanges, Rle, RleList)
+importClassesFrom(ShortRead, AlignedRead)
+
+importMethodsFrom(Biostrings, quality)
+importMethodsFrom(BSgenome, strand)
+importMethodsFrom(IRanges, Rle, runValue, "runValue<-", Views, width, elementLengths, window, aggregate, score)
+importMethodsFrom(ShortRead, chromosome, position, readAligned)
+
+importFrom(Biostrings, mkAllStrings, write.XStringViews)
+importFrom(fBasics, divPalette, seqPalette)
+importFrom(graphics, abline, axis, grconvertY, hist, image, layout,
+           legend, lines, matplot, mtext, par, plot, rect, title)
+importFrom(grDevices, col2rgb, dev.off, devAskNewPage, hsv, pdf, rgb,
+           rgb2hsv)
+importFrom(HilbertVis, hilbertImage)
+importFrom(ShortRead, alignQuality, pileup)
+importFrom(IRanges, RleList)
+importFrom(stats, dnorm, median, optimize, p.adjust, pchisq, pnorm,
+           ppoints, qnorm, qqline, qqnorm, quantile, smooth.spline)
+importFrom(timsac, fftcor)
+importFrom(utils, head, tail)
+
+
+exportPattern("^[[:alpha:]]+[^_][[:alnum:]]*$")
+exportClasses(ReadCounts, BindScore, RLEReadCounts, RLEBindScore)
+exportMethods(strandPileup, callBindingSites, "[[", "[", "$", names, "[[<-", "[<-", "$<-", "names<-", 
+     lapply, sapply, as.data.frame, head, tail, min, max, range, nreads, chrLength, score, pvalue, 
+     peaks, cutoff, "cutoff<-", nullDist, "nullDist<-", plot, compress, decompress)
