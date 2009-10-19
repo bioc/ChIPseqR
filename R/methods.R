@@ -6,24 +6,41 @@
 ####################### methods for strandPileup ##############################
 ## strand specific read counts from 'AlignedRead'
 setMethod("strandPileup", "AlignedRead",
-		definition=function(aligned, chrLen, extend, compress=TRUE, plot=TRUE, ask=FALSE, ...){
+		definition=function(aligned, chrLen, extend, coords=c("leftmost", "fiveprime"), 
+				compress=TRUE, plot=TRUE, ask=FALSE, ...){
 			
+			coords <- match.arg()
 			chrFilter <- lapply(levels(chromosome(aligned)), function(chr, all) all == chr, chromosome(aligned))
 			
 			## compute pileup for each chromosome
-			counts <- mapply(function(filter, len, extend, aligned, offset, ...){ 
-						sfilter <- filter & strand(aligned) == "+"
-						start1 <- position(aligned)[sfilter]
-						sfilter <- filter & strand(aligned) == "-"
-						start2 <- position(aligned)[sfilter]
-						width2 <- width(aligned)[sfilter]
-						counts <- cbind(pileup(start1, fraglength=extend, chrlength=len, 
-										factor("+", levels=c("-", "+", "*")), ...),
-								pileup(start2, fraglength=extend, chrlength=len, 
-										factor("-", levels=c("-", "+", "*")), 
-										readlength=width2-1, ...))
+			counts <- mapply(function(filter, len, extend, aligned, ...){ 
+#						sfilter <- filter & strand(aligned) == "+"
+#						start1 <- position(aligned)[sfilter]
+#						sfilter <- filter & strand(aligned) == "-"
+#						start2 <- position(aligned)[sfilter]
+#						width2 <- width(aligned)[sfilter]
+#						counts <- cbind(pileup(start1, fraglength=extend, chrlength=len, 
+#										factor("+", levels=c("-", "+", "*")), ...),
+#								pileup(start2, fraglength=extend, chrlength=len, 
+#										factor("-", levels=c("-", "+", "*")), 
+#										readlength=width2-1, ...))
+						sfilter1 <- filter & strand(aligned) == "+"
+						sfilter2 <- filter & strand(aligned) == "-"
+						## separate strands
+						fwd <- aligned[sfilter1]
+						rev <- aligned[sfilter2] 
+						ext1 <- -width(fwd) + as.integer(extend)
+						ext2 <- -width(rev) + as.integer(extend)
+						counts <- list(coverage(fwd, extend = ext1, coords = coords, ...)[[1]],
+								coverage(coverage(rev, extend = ext2, coords = coords, ...))[[1]])
+						## append trailing zeros to get full chromosome length
+						counts <- .fixCounts(counts, len)
+						
+						if(!compress) counts <- decompress(counts)
+						counts
 					},  
 					chrFilter, chrLen, extend, MoreArgs=list(aligned=aligned, list(...)), SIMPLIFY=FALSE)
+			
 			counts <- ReadCounts(counts, levels(chromosome(aligned)), compress=compress)
 			if(!plot) return(counts)
 			
@@ -41,19 +58,38 @@ setMethod("strandPileup", "AlignedRead",
 
 ## strand specific read counts from data frame
 setMethod("strandPileup", "data.frame",
-		definition=function(aligned, chrLen, extend, compress=TRUE, plot=TRUE, ask=FALSE, ...){
+		definition=function(aligned, chrLen, extend, coords=c("leftmost", "fiveprime"), 
+				compress=TRUE, plot=TRUE, ask=FALSE, ...){
+			
+			coords <- match.arg(coords)
 			## ensure aligned contains all required information
 			## Note that all operations are based on column names. This allows
 			## for the presence of additional columns and arbitrary column order
 			## but imposes strict requirements on column names.
+			requiredNames <- c("chromosome", "start", "end", "strand")
 			
-			requiredNames <- c("chromosome", "start", "end", "strand") 
+			## need names for chrLen
+			if(is.null(names(chrLen))) names(chrLen) <- levels(aligned$chromosome)
+			
 			## if we have start position and length for each read we convert this
 			## into start and end position
 			if(all(c("position", "length") %in% names(aligned)) && !isTRUE("start" %in% names(aligned)))
-				names(aligned)[which(names(aligned) == "position")] <- "start" 
-			if(all(c("start", "length") %in% names(aligned)) && !isTRUE("end" %in% names(aligned)))
-				aligned$end <- aligned$start + aligned$length - 1
+				names(aligned)[which(names(aligned) == "position")] <- "start"
+			## ensure 'start' is 5'-end and 'end' is 3'-end
+			if(all(c("start", "length") %in% names(aligned)) && !isTRUE("end" %in% names(aligned))){
+				idx <- aligned$strand == "+"
+				if(coords == "leftmost") {
+					aligned$end <- aligned$start + aligned$length - 1
+					tmp <- aligned$start[!idx]
+					aligned$start[!idx] <- aligned$end[!idx]
+					aligned$end[!idx] <- tmp
+				}
+				if(coords == "fiveprime"){
+					aligned$end <- integer(nrows(aligned))
+					aligned$end[idx] <- aligned$start + aligned$length - 1
+					aligned$end[!idx] <- aligned$start - aligned$length + 1
+				}		
+			}
 			if(!all(requiredNames %in% names(aligned)))
 				stop("Columns ", requiredNames[which(!(requiredNames %in% names(aligned)))], " are missing.")
 			
@@ -63,10 +99,24 @@ setMethod("strandPileup", "data.frame",
 			for(chr in levels(aligned$chromosome)){
 				chrFilter <- aligned$chromosome == chr
 				strFilter <- aligned$strand == "+"
-				counts[[chr]] <- cbind(pileup(aligned$start[chrFilter & strFilter], fraglength=extend, 
-								chrlength=chrLen, dir=factor("+",levels=c("-", "+", "*")), ...),
-						pileup(aligned$end[chrFilter & !strFilter], fraglength=extend, chrlength=chrLen, 
-								readlength=extend-1,dir=factor("-",levels=c("-", "+", "*")), ...))
+				start1 <- aligned$start[chrFilter & strFilter]
+				start1 <- start1[start1 + extend -1 <= chrLen[chr]]
+				start2 <- aligned$end[chrFilter & !strFilter] - extend + 1
+				start2 <- start2[start2 >= 1L]
+				
+#				if(extend > 1){
+#					start1 <- unlist(lapply(start1, function(x) seq(x, x+extend-1)))
+#					start2 <- unlist(lapply(start2, function(x) seq(x, x-extend+1)))
+#				} 
+#				counts[[chr]] <- cbind(pileup(aligned$start[chrFilter & strFilter], fraglength=extend, 
+#								chrlength=chrLen, dir=factor("+",levels=c("-", "+", "*")), ...),
+#						pileup(aligned$end[chrFilter & !strFilter], fraglength=extend, chrlength=chrLen, 
+#								readlength=extend-1,dir=factor("-",levels=c("-", "+", "*")), ...))
+				
+				counts[[chr]] <- list(coverage(IRanges(start=start1, width=extend), ...), 
+						coverage(IRanges(start=start2, width=extend), ...))
+				counts[[chr]] <- .fixCounts(counts[[chr]], chrLen[chr])
+				if(!compress) counts[[chr]] <- decompress(counts[[chr]])
 			}
 			counts <- ReadCounts(counts, compress=compress)
 			if(!plot) return(counts)
@@ -456,7 +506,7 @@ setMethod("decompress", "RleList",
 			
 			## simplify into matrix or vector if possible
 			if(simplify & length(result) == 1) result <- result[[1]]
-			if(simplify & all.equal(class, rep(class[1], length(class)), check.attributes=FALSE) & 
+			else if(simplify & all.equal(class, rep(class[1], length(class)), check.attributes=FALSE) & 
 					max(abs(diff(IRanges::elementLengths(result)))) == 0){
 				result <- do.call(cbind, result)
 			}
@@ -492,7 +542,7 @@ setMethod("plot", list(x="RLEReadCounts", y="missing"),
 				start <- floor(center - ceiling(width/2))
 				end <- ceiling(center + ceiling(width/2))
 				if(!is.character(chr)) chr <- names(x)[chr]
-				x <- list(sapply(x[[chr]], function(x) as.integer(IRanges::window(x,start,end))))
+				x <- list(sapply(x[[chr]], function(x) as.integer(window(x,start,end))))
 				names(x) <- chr
 				
 				if(!missing(score)) score <- decompress(score[[chr, start:end]])

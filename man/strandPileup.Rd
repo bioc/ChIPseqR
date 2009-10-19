@@ -10,19 +10,23 @@
   starting at each position in the genome.
 }
 \usage{
-\S4method{strandPileup}{AlignedRead}(aligned, chrLen, extend, compress = TRUE, plot = TRUE, ask = FALSE, ...)
-\S4method{strandPileup}{data.frame}(aligned, chrLen, extend, compress = TRUE, plot = TRUE, ask = FALSE, ...)
+\S4method{strandPileup}{AlignedRead}(aligned, chrLen, extend,  coords=c("leftmost", "fiveprime"),
+		compress = TRUE, plot = TRUE, ask = FALSE, ...)
+\S4method{strandPileup}{data.frame}(aligned, chrLen, extend, coords=c("leftmost", "fiveprime"), 
+		compress = TRUE, plot = TRUE, ask = FALSE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{aligned}{An object containing information about aligned reads (see Details).}
   \item{chrLen}{A numeric vector giving the length of each chromosome.}
   \item{extend}{A numeric value indicating how far reads should be extended.}
+  \item{coords}{A character value indicating the coordinate system to use. 
+  See \code{\link[ShortRead:AlignedRead]{coverage}} for details.}
   \item{compress}{Logical indicating whether read counts should be compressed.}
   \item{plot}{If this is \code{TRUE} (the default) read coverage is plotted for all chromosomes.}
   \item{ask}{Logical. Setting this to \code{TRUE} causes the system to wait for user input before displaying a new plot.
   See \code{\link[grDevices:devAskNewPage]{devAskNewPage}}.}
-  \item{\dots}{Further arguments to \code{\link[ShortRead:pileup]{pileup}}.}
+  \item{\dots}{Further arguments to \code{\link[IRanges:coverage]{coverage}}.}
 }
 \details{
   The method for \code{data.frame} requires the column names to follow a strict naming scheme. Required columns are
@@ -39,7 +43,7 @@
 }
 \author{Peter Humburg}
 
-\seealso{\code{\link[ShortRead:pileup]{pileup}}, \code{\link[ShortRead:AlignedRead]{AlignedRead}}, 
+\seealso{\code{\link[IRanges:coverage]{coverage}}, \code{\link[ShortRead:AlignedRead]{AlignedRead}}, 
 \code{\link{callBindingSites}}}
 \examples{
 	## generate some very simple artificial read data

@@ -3,12 +3,13 @@ useDynLib(ChIPseqR, startScore_pois)
 import(methods)
 
 importClassesFrom(Biostrings, XString, XStringSet, XStringViews)
-importClassesFrom(IRanges, Rle, RleList)
+importClassesFrom(IRanges, Rle, RleList, IRanges)
 importClassesFrom(ShortRead, AlignedRead)
 
 importMethodsFrom(Biostrings, quality)
 importMethodsFrom(BSgenome, strand)
-importMethodsFrom(IRanges, Rle, runValue, "runValue<-", Views, width, elementLengths, window, aggregate, score)
+importMethodsFrom(IRanges, Rle, runValue, "runValue<-", runLength, Views, width, elementLengths, 
+					window, aggregate, score, coverage)
 importMethodsFrom(ShortRead, chromosome, position, readAligned)
 
 importFrom(Biostrings, mkAllStrings, write.XStringViews)
@@ -18,7 +19,7 @@ importFrom(graphics, abline, axis, grconvertY, hist, image, layout,
 importFrom(grDevices, col2rgb, dev.off, devAskNewPage, hsv, pdf, rgb,
            rgb2hsv)
 importFrom(HilbertVis, hilbertImage)
-importFrom(ShortRead, alignQuality, pileup)
+importFrom(ShortRead, alignQuality)
 importFrom(IRanges, RleList)
 importFrom(stats, dnorm, median, optimize, p.adjust, pchisq, pnorm,
            ppoints, qnorm, qqline, qqnorm, quantile, smooth.spline)

@@ -879,3 +879,19 @@ plotFreq <- function(data, nameLen=1, alphabet=c("A", "C", "G", "T"),
 	}
 	result
 }
+
+## append trailing zeros to get full chromosome length
+## returns RleList with read counts for both strands
+.fixCounts <- function(counts, totalLen){
+	countLen <- sapply(counts, length)
+	if(countLen[1] < totalLen){
+		counts[[1]]@lengths <- c(runLength(counts[[1]]), as.integer(totalLen) - countLen[1])
+		counts[[1]]@values <- c(runValue(counts[[1]]), 0L)
+	}
+	if(countLen[2] < totalLen){
+		counts[[2]]@lengths <- c(runLength(counts[[2]]), as.integer(totalLen) - countLen[2])
+		counts[[2]]@values <- c(runValue(counts[[2]]), 0L)
+	}
+	
+	RleList(counts[[1]], counts[[2]])
+}
