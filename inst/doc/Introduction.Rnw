@@ -148,19 +148,21 @@ but that is to be expected considering the relatively low coverage and high nois
 We can plot some of the data together with the binding site score and predicted
 nucleosome positions using \texttt{plotWindow}:
 <<plotWindowPrint, eval=FALSE>>=
-	plot(counts, chr="chr1", center=peaks(nucs)[[1]][911], score=nucs, width=1000, type="window")
+	predicted <- peaks(nucs)[[1]][911]
+	plot(counts, chr="chr1", center=predicted, score=nucs, width=1000, type="window")
 @
 The output is shown in Figure~2. Note how we use \texttt{peaks} to obtain a list of
 predicted binding sites. To see how these predictions relate to the actual position 
 of simulated nucleosomes we add some additional markers.
 <<plotWindowPrint2, eval=FALSE>>=
-	abline(v=pos[pos < 638900 & pos > 637900], col=3, lty=3)
+	abline(v=pos[pos < predicted + 1000 & pos > predicted - 1000], col=3, lty=3)
 @
 \begin{figure}[htb]
 \centering
 <<plotWindow, fig=TRUE, echo=FALSE>>=
-	plot(counts, chr="chr1", center=peaks(nucs)[[1]][911], score=nucs, width=1000, type="window")
-	abline(v=pos[pos < 638900 & pos > 637900], col=3, lty=3)
+	predicted <- peaks(nucs)[[1]][911]
+	plot(counts, chr="chr1", center=predicted, score=nucs, width=1000, type="window")
+	abline(v=pos[pos < predicted + 1000 & pos > predicted - 1000], col=3, lty=3)
 @
 \caption{Read counts and predicted binding sites. Read counts on forward (red) and 
 reverse (blue) strand are shown as vertical bars. The binding site score is shown in green with
