@@ -85,9 +85,9 @@ setMethod("strandPileup", "data.frame",
 					aligned$end[!idx] <- tmp
 				}
 				if(coords == "fiveprime"){
-					aligned$end <- integer(nrows(aligned))
-					aligned$end[idx] <- aligned$start + aligned$length - 1
-					aligned$end[!idx] <- aligned$start - aligned$length + 1
+					aligned$end <- integer(nrow(aligned))
+					aligned$end[idx] <- aligned$start[idx] + aligned$length[idx] - 1
+					aligned$end[!idx] <- aligned$start[!idx] - aligned$length[!idx] + 1
 				}		
 			}
 			if(!all(requiredNames %in% names(aligned)))
