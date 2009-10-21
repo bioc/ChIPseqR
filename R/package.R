@@ -71,7 +71,9 @@ windowCounts <- function(reads, window=1000, shift=500, method=sum){
 	height <- max(data[range,])
 	
 	if(!missing(score)){
-		par(mar=c(5,4,4,4)+0.1)
+		mar <- par("mar")
+		mar[4] <- max(4.1, mar[4])
+		par(mar=mar)
 		score <- score[[chr, start:end]]
 		peaks <- unlist(peaks(score))
 		if(missing(bind)) bind <- binding(score)
