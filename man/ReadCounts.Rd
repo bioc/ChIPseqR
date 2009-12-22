@@ -7,8 +7,8 @@
 \alias{[[<-,ReadCounts,ANY,missing-method}
 \alias{[[,ReadCounts,ANY,missing-method}
 \alias{$<-,ReadCounts-method}
-\alias{$<-,ReadCounts,ANY,ANY-method}
-\alias{$,ReadCounts,ANY-method}
+\alias{$<-,ReadCounts,ANY-method}
+\alias{$,ReadCounts-method}
 \alias{lapply,ReadCounts-method}
 \alias{length<-,ReadCounts-method}
 \alias{length,ReadCounts-method}
@@ -39,7 +39,7 @@ to \code{\link{strandPileup}}.
     \item{[[<-}{\code{signature(x = "ReadCounts", i = "ANY", j = "missing")}: Replace read counts for chromosome \code{i}.}
     \item{[[}{\code{signature(x = "ReadCounts", i = "ANY", j = "missing")}: Returns read counts for chromosome \code{i}.}
     \item{$<-}{\code{signature(x = "ReadCounts")}: Replace read counts for chromosome \code{i} (by name).}
-    \item{$}{\code{signature(x = "ReadCounts", name = "ANY")}: Returns read counts for chromosome \code{i} (by name).}
+    \item{$}{\code{signature(x = "ReadCounts")}: Returns read counts for chromosome \code{i} (by name).}
     \item{callBindingSites}{\code{signature(data = "ReadCounts")}: Predict bindingsites from read counts.}
     \item{chrLength}{\code{signature(x = "ReadCounts", subset = "ANY")}: Returns length of all chromosomes represented in \code{x}.}
     \item{lapply}{\code{signature(X = "ReadCounts")}: Apply function to read counts for each chromosome.}

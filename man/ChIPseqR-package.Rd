@@ -13,7 +13,7 @@ are located by identifying a characteristic pattern of peaks in read counts on b
 \tabular{ll}{
 Package: \tab ChIPseqR\cr
 Type: \tab Package\cr
-Version: \tab 0.99.4\cr
+Version: \tab 1.1.0\cr
 Date: \tab 2009-10-21\cr
 License: \tab GPL (>=2)\cr
 LazyLoad: \tab yes\cr
@@ -35,7 +35,7 @@ predictions:
 \author{
 Peter Humburg
 
-Maintainer: Peter Humburg <Peter.Humburg@csiro.au>
+Maintainer: Peter Humburg <Peter.Humburg@well.ox.ac.uk>
 }
 \references{
 ~~ Literature or other references for background information ~~
