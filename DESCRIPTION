@@ -11,4 +11,4 @@ Description: ChIPseqR identifies protein binding sites from ChIP-seq and nucleos
 License: GPL (>= 2)
 LazyLoad: yes
 Collate: classes.R generics.R initialize.R methods.R access.R package.R
-BiocViews: ChIPseq, Bioinformatics, Infrastructure
+biocViews: ChIPseq, Bioinformatics, Infrastructure
