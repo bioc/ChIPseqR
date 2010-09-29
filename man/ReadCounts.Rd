@@ -5,6 +5,7 @@
 \alias{[<-,ReadCounts,ANY,missing-method}
 \alias{[,ReadCounts,ANY,missing,missing-method}
 \alias{[[<-,ReadCounts,ANY,missing-method}
+\alias{[[<-,ReadCounts,ANY,missing,ANY-method}
 \alias{[[,ReadCounts,ANY,missing-method}
 \alias{$<-,ReadCounts-method}
 \alias{$<-,ReadCounts,ANY-method}
