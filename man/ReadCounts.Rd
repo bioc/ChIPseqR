@@ -4,6 +4,7 @@
 \alias{ReadCounts-class}
 \alias{[<-,ReadCounts,ANY,missing-method}
 \alias{[,ReadCounts,ANY,missing,missing-method}
+\alias{[<-,ReadCounts,ANY,missing,Any-method}
 \alias{[[<-,ReadCounts,ANY,missing-method}
 \alias{[[<-,ReadCounts,ANY,missing,ANY-method}
 \alias{[[,ReadCounts,ANY,missing-method}
