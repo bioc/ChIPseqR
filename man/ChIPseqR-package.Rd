@@ -38,7 +38,7 @@ Peter Humburg
 Maintainer: Peter Humburg <Peter.Humburg@well.ox.ac.uk>
 }
 \references{
-~~ Literature or other references for background information ~~
+Humburg, P., Helliwell, C., Bulger, D. & Stone, G. ChIPseqR: Analysis of ChIP-seq Experiments. BMC Bioinformatics 12, 39+ (2011).
 }
 
 \keyword{ package }

@@ -1,0 +1,10 @@
+citEntry{'article', 
+	author = 'Humburg, Peter and Helliwell, Chris and Bulger, David and Stone, Glenn',
+	title = 'ChIPseqR: Analysis of ChIP-seq Experiments',
+	journal = 'BMC Bioinformatics',
+	volume = 12,
+	number = 1,
+	pages = 39,
+	year = 2011,
+	url = 'http://www.biomedcentral.com/1471-2105/12/39',
+	doi = '10.1186/1471-2105-12-39'}
