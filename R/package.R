@@ -61,7 +61,6 @@ windowCounts <- function(reads, window=1000, shift=500, method=sum){
 .plotWindow <- function(data, chr, center, score, width=2000, bind, start, end,
 		bind.col=3, score.type='l',	xlab=NULL, ylab="Read count", cutoff=TRUE, offset=1, ...){
 	stopifnot(is(data, "ReadCounts") || is.list(data))
-#	stopifnot(is.list(data))
 	
 	data <- data[[chr]]
 	if(missing(start)) start <- floor(center - ceiling(width/2))
@@ -90,8 +89,8 @@ windowCounts <- function(reads, window=1000, shift=500, method=sum){
 	
 	## plot score
 	if(!missing(score)){
-		score.col <- rgb2hsv(col2rgb(bind.col))
-		score.col <- hsv(score.col[1,], score.col[2,], score.col[3,], gamma=0.5)
+		score.col <- col2rgb(3)/255
+		score.col <- rgb(sqrt(score.col[1,]), sqrt(score.col[2,]), sqrt(score.col[3,]))
 		
 		min.score <- min(score, na.rm=TRUE)
 		max.score <- max(score, na.rm=TRUE)
@@ -142,8 +141,8 @@ windowCounts <- function(reads, window=1000, shift=500, method=sum){
 	}
 	
 	## use lighter colour for overlayed feature
-	col <- rgb2hsv(col2rgb(col))
-	col <- hsv(col[1,], col[2,]/2, col[3,], gamma=0.5)
+	col <- col2rgb(col)/255
+	col <- rgb(sqrt(col[1,]), sqrt(col[2,]*0.5), sqrt(col[3,]))
 	
 	x <- x.centre - ceiling(bind/2)
 	col <- rep(col,length.out=length(x))
