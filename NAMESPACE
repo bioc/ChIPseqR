@@ -12,7 +12,7 @@ importMethodsFrom(IRanges, Rle, runValue, "runValue<-", runLength, Views, width,
 					window, aggregate, score, coverage)
 importMethodsFrom(ShortRead, chromosome, position, readAligned)
 
-importFrom(Biostrings, mkAllStrings, write.XStringViews)
+importFrom(Biostrings, mkAllStrings, write.XStringSet)
 importFrom(fBasics, divPalette, seqPalette)
 importFrom(graphics, abline, axis, grconvertY, hist, image, layout,
            legend, lines, matplot, mtext, par, plot, rect, title)
