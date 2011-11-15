@@ -246,7 +246,8 @@ pos2gff <- function(pos, method, feature, len, strand, score, name){
 
 ## using C code
 startScore <- function(data, b, support, background, bgCutoff, supCutoff){
-	if(typeof(data) != "integer") data <- matrix(as.integer(data), ncol = 2)
+	if(typeof(data) != "integer")
+            data <- matrix(as.integer(unlist(data, use.names=FALSE)), ncol = 2)
 	score <- .Call(startScore_pois, data, as.integer(b), as.integer(support), as.integer(background), 
 			bgCutoff, supCutoff)
 	score
