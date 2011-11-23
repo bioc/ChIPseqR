@@ -2,14 +2,18 @@ useDynLib(ChIPseqR, startScore_pois)
 
 import(methods)
 
+import(BiocGenerics)
+
 importClassesFrom(Biostrings, XString, XStringSet, XStringViews)
 importClassesFrom(IRanges, Rle, RleList, IRanges)
 importClassesFrom(ShortRead, AlignedRead)
 
 importMethodsFrom(Biostrings, quality)
 importMethodsFrom(GenomicRanges, strand)
-importMethodsFrom(IRanges, unlist, Rle, runValue, "runValue<-", runLength, Views, width, elementLengths, 
-					window, aggregate, score, coverage)
+importMethodsFrom(IRanges, lapply, sapply, unlist,
+                  Rle, runValue, "runValue<-", runLength,
+                  Views, width, elementLengths, window, aggregate, score,
+                  coverage)
 importMethodsFrom(ShortRead, chromosome, position, readAligned)
 
 importFrom(Biostrings, mkAllStrings, write.XStringSet)
