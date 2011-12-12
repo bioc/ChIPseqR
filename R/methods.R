@@ -9,7 +9,7 @@ setMethod("strandPileup", "AlignedRead",
 		definition=function(aligned, chrLen, extend, coords=c("leftmost", "fiveprime"), 
 				compress=TRUE, plot=TRUE, ask=FALSE, ...){
 			
-			coords <- match.arg()
+			coords <- match.arg(coords)
 			chrFilter <- lapply(levels(chromosome(aligned)), function(chr, all) all == chr, chromosome(aligned))
 			
 			## compute pileup for each chromosome
