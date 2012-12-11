@@ -370,8 +370,8 @@ setMethod("length<-", "BindScore",
 )
 
 ## convert to data.frame
-setMethod("as.data.frame", c(x="BindScore", row.names="ANY", optional="ANY"),
-		definition=function(x, row.names, optional, ...){
+setMethod("as.data.frame", c(x="BindScore"),
+		definition=function(x, ...){
 			chr <- rep(names(x), times=IRanges::elementLengths(peaks(x)))
 			pos <- c(peaks(x), recursive=TRUE)
 			peakScores <- c(mapply(function(y, i, offset) as.numeric(y[i - offset]),  score(x), peaks(x), 
