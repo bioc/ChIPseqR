@@ -35,7 +35,6 @@ startScore(data, b, support, background, bgCutoff, supCutoff)
 Instead of calling this function directly use \code{\link{callBindingSites}}.
 }
 
-\references{}
 \author{Peter Humburg}
 
 \seealso{\code{\link{callBindingSites}}}

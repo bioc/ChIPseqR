@@ -307,7 +307,7 @@ pickPeak <- function(score, threshold, offset=0, sub=FALSE){
 ## alpha is the target level of the FDR (which will be adapted to the data)
 getCutoff <- function(score, alpha = 0.05, tailCut=0.95, adapt=FALSE, lambda, plot = TRUE, returnPval = TRUE){
 	nllk <- function(sd, x, cutoff){
-		dnom <- log(pnorm(cutoff, sd=sd, log=FALSE) - pnorm(0, sd=sd, log=FALSE))
+		dnom <- log(pnorm(cutoff, sd=sd, log.p=FALSE) - pnorm(0, sd=sd, log.p=FALSE))
 		-(sum(dnorm(x[x < cutoff], sd=sd, log=TRUE) - dnom))
 	}
 	

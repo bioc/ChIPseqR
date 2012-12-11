@@ -13,8 +13,8 @@ are located by identifying a characteristic pattern of peaks in read counts on b
 \tabular{ll}{
 Package: \tab ChIPseqR\cr
 Type: \tab Package\cr
-Version: \tab 1.9.2\cr
-Date: \tab 2011-12-12\cr
+Version: \tab 1.13.1\cr
+Date: \tab 2012-12-11\cr
 License: \tab GPL (>=2)\cr
 LazyLoad: \tab yes\cr
 }
