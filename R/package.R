@@ -486,7 +486,7 @@ exportBindSequence <- function(prediction, reference, bind, overlap=FALSE, file=
 	if(file=="") return(seqs)
 	
 	files <- sapply(names(prediction), function(chr) paste(file, "_", chr, ".fasta", sep=""))
-	mapply(function(x, file, format) write.XStringSet(as(x, "XStringSet"), file), seqs, files)
+	mapply(function(x, file, format) writeXStringSet(as(x, "XStringSet"), file), seqs, files)
 	
 	invisible(seqs)
 }

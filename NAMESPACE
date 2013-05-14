@@ -16,7 +16,7 @@ importMethodsFrom(IRanges, lapply, sapply, unlist,
                   coverage)
 importMethodsFrom(ShortRead, chromosome, position, readAligned)
 
-importFrom(Biostrings, mkAllStrings, write.XStringSet)
+importFrom(Biostrings, mkAllStrings, writeXStringSet)
 importFrom(fBasics, divPalette, seqPalette)
 importFrom(graphics, abline, axis, grconvertY, hist, image, layout,
            legend, lines, matplot, mtext, par, plot, rect, title)
