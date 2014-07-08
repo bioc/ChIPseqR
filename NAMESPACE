@@ -4,14 +4,15 @@ import(methods)
 
 import(BiocGenerics)
 
+import(S4Vectors)
+
 importClassesFrom(Biostrings, XString, XStringSet, XStringViews)
-importClassesFrom(IRanges, Rle, RleList, IRanges)
+importClassesFrom(IRanges, RleList, IRanges)
 importClassesFrom(ShortRead, AlignedRead)
 
 importMethodsFrom(Biostrings, quality)
 importMethodsFrom(GenomicRanges, strand)
 importMethodsFrom(IRanges, lapply, sapply, unlist,
-                  Rle, runValue, "runValue<-", runLength,
                   Views, width, elementLengths, window, aggregate, score,
                   coverage)
 importMethodsFrom(ShortRead, chromosome, position, readAligned)
