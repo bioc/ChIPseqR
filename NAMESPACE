@@ -12,9 +12,9 @@ importClassesFrom(ShortRead, AlignedRead)
 
 importMethodsFrom(Biostrings, quality)
 importMethodsFrom(GenomicRanges, strand)
-importMethodsFrom(IRanges, lapply, sapply, unlist,
-                  Views, width, elementLengths, window, aggregate, score,
-                  coverage)
+importMethodsFrom(IRanges, unlist, Views, width, elementLengths, 
+                  window, aggregate, score, coverage)
+importMethodsFrom(S4Vectors, lapply, sapply)
 importMethodsFrom(ShortRead, chromosome, position, readAligned)
 
 importFrom(Biostrings, mkAllStrings, writeXStringSet)
