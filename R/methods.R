@@ -32,14 +32,14 @@ setMethod("strandPileup", "AlignedRead",
 						ext1 <- -width(fwd) + as.integer(extend)
 						ext2 <- -width(rev) + as.integer(extend)
 						counts <- list(coverage(fwd, extend = ext1, coords = coords, ...)[[1]],
-								coverage(coverage(rev, extend = ext2, coords = coords, ...))[[1]])
+								coverage(rev, extend = ext2, coords = coords, ...)[[1]])
 						## append trailing zeros to get full chromosome length
 						counts <- .fixCounts(counts, len)
 						
 						if(!compress) counts <- decompress(counts)
 						counts
 					},  
-					chrFilter, chrLen, extend, MoreArgs=list(aligned=aligned, list(...)), SIMPLIFY=FALSE)
+					chrFilter, chrLen, extend, MoreArgs=c(list(aligned=aligned), list(...)), SIMPLIFY=FALSE)
 			
 			counts <- ReadCounts(counts, levels(chromosome(aligned)), compress=compress)
 			if(!plot) return(counts)
