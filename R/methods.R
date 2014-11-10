@@ -14,16 +14,6 @@ setMethod("strandPileup", "AlignedRead",
 			
 			## compute pileup for each chromosome
 			counts <- mapply(function(filter, len, extend, aligned, ...){ 
-#						sfilter <- filter & strand(aligned) == "+"
-#						start1 <- position(aligned)[sfilter]
-#						sfilter <- filter & strand(aligned) == "-"
-#						start2 <- position(aligned)[sfilter]
-#						width2 <- width(aligned)[sfilter]
-#						counts <- cbind(pileup(start1, fraglength=extend, chrlength=len, 
-#										factor("+", levels=c("-", "+", "*")), ...),
-#								pileup(start2, fraglength=extend, chrlength=len, 
-#										factor("-", levels=c("-", "+", "*")), 
-#										readlength=width2-1, ...))
 						sfilter1 <- filter & strand(aligned) == "+"
 						sfilter2 <- filter & strand(aligned) == "-"
 						## separate strands
@@ -103,15 +93,6 @@ setMethod("strandPileup", "data.frame",
 				start1 <- start1[start1 + extend -1 <= chrLen[chr]]
 				start2 <- aligned$end[chrFilter & !strFilter] - extend + 1
 				start2 <- start2[start2 >= 1L]
-				
-#				if(extend > 1){
-#					start1 <- unlist(lapply(start1, function(x) seq(x, x+extend-1)))
-#					start2 <- unlist(lapply(start2, function(x) seq(x, x-extend+1)))
-#				} 
-#				counts[[chr]] <- cbind(pileup(aligned$start[chrFilter & strFilter], fraglength=extend, 
-#								chrlength=chrLen, dir=factor("+",levels=c("-", "+", "*")), ...),
-#						pileup(aligned$end[chrFilter & !strFilter], fraglength=extend, chrlength=chrLen, 
-#								readlength=extend-1,dir=factor("-",levels=c("-", "+", "*")), ...))
 				
 				counts[[chr]] <- list(coverage(IRanges(start=start1, width=extend), ...), 
 						coverage(IRanges(start=start2, width=extend), ...))
