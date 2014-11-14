@@ -838,7 +838,7 @@ plotFreq <- function(data, nameLen=1, alphabet=c("A", "C", "G", "T"),
 		table[idx[nuc]] <- ifelse(is.na(oligonucSample[nuc]), 0, oligonucSample[nuc])
 	}
 		
-	test <- ChIPseqR:::.twoWayTest(table, classes=list(names(freq1), names(freq2)), blocked=oligo-2)
+	test <- .twoWayTest(table, classes=list(names(freq1), names(freq2)), blocked=oligo-2)
 	test$statistic
 }
 

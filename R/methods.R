@@ -94,8 +94,8 @@ setMethod("strandPileup", "data.frame",
 				start2 <- aligned$end[chrFilter & !strFilter] - extend + 1
 				start2 <- start2[start2 >= 1L]
 				
-				counts[[chr]] <- list(coverage(IRanges(start=start1, width=extend), ...), 
-						coverage(IRanges(start=start2, width=extend), ...))
+				counts[[chr]] <- list(coverage(IRanges::IRanges(start=start1, width=extend), ...), 
+						coverage(IRanges::IRanges(start=start2, width=extend), ...))
 				counts[[chr]] <- .fixCounts(counts[[chr]], chrLen[chr])
 				if(!compress) counts[[chr]] <- decompress(counts[[chr]])
 			}
