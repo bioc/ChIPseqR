@@ -7,7 +7,7 @@ setMethod("initialize", c("ReadCounts"),
 		function(.Object, counts=list(), names=NULL, ...){
 			stopifnot(is.list(counts))
 			
-			.Object <- callNextMethod()
+			.Object <- callNextMethod(.Object, ...)
 			
 			## ensure we have chromosome names
 			if(!is.null(names)) names(counts) <- names
@@ -75,7 +75,7 @@ setMethod("initialize", c("RLEReadCounts"),
 setMethod("initialize", "BindScore",
 		function(.Object, functionCall, score=list(), pvalue=list(), peaks=list(), cutoff=c(-Inf, 1), 
 				nullDist=c(0, 1), names=NULL, start=1L, digits=16, ...){
-			.Object <- callNextMethod()
+			.Object <- callNextMethod(.Object, ...)
 			
 			## ensure we have chromosome names
 			if(any(sapply(list(names(score), names(pvalue), names(peaks)), is.null)) ||
