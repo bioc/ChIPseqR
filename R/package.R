@@ -269,7 +269,8 @@ pickPeak <- function(score, threshold, offset=0, sub=FALSE){
 				start <- which.max(subset)
 				if(start == length(subset)) centre <- start + s - 1
 				else{
-					d <- diff(IRanges::window(subset, start, length(subset)))
+					t <- time(subset)
+					d <- diff(IRanges::window(subset, t[start], t[length(subset)]))
 					change <- which(d < 0)
 					if(length(change) > 0) end <- min(change) + start - 1
 					else end <- length(subset)

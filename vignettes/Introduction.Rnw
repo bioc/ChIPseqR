@@ -122,8 +122,8 @@ plots by setting \texttt{plot = TRUE}.
 
 Diagnostic plots can also be obtained later by plotting the R objects created by 
 \texttt{strandPileup} and \texttt{simpleNucCall}. For example, to genarate some diagnostic 
-plots to assess how well the data fits the null distribution used by \texttt{CHIPseqR}
-we can simply plot \texttt{nucs}:
+plots to assess how well the data fits the null distribution used by
+\texttt{ChIPseqR} we can simply plot \texttt{nucs}:
 <<plotNucPrint, eval=FALSE>>=
 	plot(nucs, type="density")
 	plot(nucs, type="qqplot")
