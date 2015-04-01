@@ -262,24 +262,16 @@ pickPeak <- function(score, threshold, offset=0, sub=FALSE){
 	change.at <- which(idx.dist > 1)
 	idx.start <- c(1, change.at +1)
 	idx.end <- c(change.at, length(idx))
-	
+	broadPeak <- IRanges::Views(score, idx[idx.start], idx[idx.end])
+	peak <- IRanges::viewWhichMaxs(broadPeak)
 	## if the peak is flat we pick the centre
-	peak <- mapply(function(s,e, x){
-				subset <- IRanges::window(x, s, e)
-				start <- which.max(subset)
-				if(start == length(subset)) centre <- start + s - 1
-				else{
-					t <- time(subset)
-					d <- diff(IRanges::window(subset, t[start], t[length(subset)]))
-					change <- which(d < 0)
-					if(length(change) > 0) end <- min(change) + start - 1
-					else end <- length(subset)
-					
-					centre <- start + floor((end - start)/2) + s - 1
-				}
-				centre				
-			}, idx[idx.start], idx[idx.end], MoreArgs=list(x=score))
-	
+	for(i in 1:length(peak)){
+	  runs <- as(broadPeak[[i]][(peak[i] - start(broadPeak)[i] + 1):width(broadPeak)[i]], "Rle")
+	  peakWidth <- runLength(runs)[1]
+	  if(peakWidth > 1){
+	    peak[i] <- peak[i] + floor(peakWidth/2) 
+	  }
+	}
 	if(sub){
 		subPeaks <- mapply(function(s,e, x) {
 					if(s == e) p <- s + offset
