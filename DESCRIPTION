@@ -2,7 +2,7 @@ Package: ChIPseqR
 Type: Package
 Title: Identifying Protein Binding Sites in High-Throughput Sequencing
         Data
-Version: 1.21.5
+Version: 1.22.0
 Date: 2015-04-01
 Author: Peter Humburg
 Maintainer: Peter Humburg <peter.humburg@well.ox.ac.uk>
