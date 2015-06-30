@@ -2,13 +2,13 @@ Package: ChIPseqR
 Type: Package
 Title: Identifying Protein Binding Sites in High-Throughput Sequencing
         Data
-Version: 1.23.1
+Version: 1.23.2
 Date: 2015-04-01
 Author: Peter Humburg
 Maintainer: Peter Humburg <peter.humburg@gmail.com>
 Depends: R (>= 2.10.0), methods, BiocGenerics, S4Vectors
-Imports: Biostrings, fBasics, GenomicRanges, IRanges, graphics, grDevices,
-        HilbertVis, ShortRead, stats, timsac, utils
+Imports: Biostrings, fBasics, GenomicRanges, IRanges (>= 2.3.13), graphics,
+        grDevices, HilbertVis, ShortRead, stats, timsac, utils
 Description: ChIPseqR identifies protein binding sites from ChIP-seq
         and nucleosome positioning experiments. The model used to
         describe binding events was developed to locate nucleosomes but
