@@ -48,7 +48,7 @@ windowCounts <- function(reads, window=1000, shift=500, method=sum){
 	n <- length(reads)
 	start <- seq(1, n-window, by=shift)
 	end <- seq(window, n, by=shift)
-	wndw <- IRanges::aggregate(reads, start=start, end=end, FUN=method)
+	wndw <- aggregate(reads, start=start, end=end, FUN=method)
 	names(wndw) <- ceiling(start+(end-start)/2)
 	wndw
 }
