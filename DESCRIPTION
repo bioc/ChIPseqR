@@ -18,3 +18,5 @@ License: GPL (>= 2)
 LazyLoad: yes
 Collate: classes.R generics.R initialize.R methods.R access.R package.R
 biocViews: ChIPSeq, Infrastructure
+URL: https://github.com/humburg/ChIPseqR
+BugReports: https://github.com/humburg/ChIPseqR/issue
