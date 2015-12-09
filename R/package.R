@@ -45,12 +45,10 @@ alignFeature <- function(data, anno, offset = 1000){
 
 ## compute sliding window summaries of read counts
 windowCounts <- function(reads, window=1000, shift=500, method=sum){
-	n <- length(reads)
-	start <- seq(1, n-window, by=shift)
-	end <- seq(window, n, by=shift)
-	wndw <- aggregate(reads, start=start, end=end, FUN=method)
-	names(wndw) <- ceiling(start+(end-start)/2)
-	wndw
+    views <- slidingViews(reads, window, shift)
+    wndw <- viewApply(views, function(v) method(as.vector(v)))
+    names(wndw) <- mid(ranges(views))
+    wndw
 }
 
 

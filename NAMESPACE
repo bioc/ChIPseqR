@@ -25,7 +25,7 @@ importFrom(grDevices, col2rgb, dev.off, devAskNewPage, hsv, pdf, rgb,
            rgb2hsv)
 importFrom(HilbertVis, hilbertImage)
 importFrom(ShortRead, alignQuality)
-importFrom(IRanges, RleList)
+importFrom(IRanges, RleList, slidingViews, viewApply, ranges, mid)
 importFrom(stats, dnorm, median, optimize, p.adjust, pchisq, pnorm,
            ppoints, qnorm, qqline, qqnorm, quantile, smooth.spline)
 importFrom(timsac, fftcor)
