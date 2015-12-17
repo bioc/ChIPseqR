@@ -78,9 +78,9 @@ setMethod("[[", c(x="BindScore", j="numeric"),
 			if(max(j) <= 0) j <- numeric()
 			else j[which.min(j)] <- max(min(j), 1)
 			j <- j[j > 0]
-			scores <- if(length(j) > 0) list(as.numeric(IRanges::window(score(x)[[i]],min(j),max(j)))) 
+			scores <- if(length(j) > 0) list(as.numeric(window(score(x)[[i]],min(j),max(j)))) 
 					else list(new(class(score(x)[[i]])))
-			pvalues <- if(length(j) > 0) list(as.numeric(IRanges::window(pvalue(x)[[i]],min(j),max(j)))) 
+			pvalues <- if(length(j) > 0) list(as.numeric(window(pvalue(x)[[i]],min(j),max(j)))) 
 					else list(new(class(pvalue(x)[[i]])))
 			new(class(x), x@functionCall, scores, pvalues, list(peaks), cutoff=cutoff(x), 
 					nullDist=nullDist(x), names=names, start=min(j)+offset - 1)
