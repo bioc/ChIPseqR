@@ -273,11 +273,11 @@ pickPeak <- function(score, threshold, offset=0, sub=FALSE){
 	if(sub){
 		subPeaks <- mapply(function(s,e, x) {
 					if(s == e) p <- s + offset
-					else if(isTRUE(all.equal(diff(IRanges::window(x, s, e)), rep(0, e-s)))) 
+					else if(isTRUE(all.equal(diff(window(x, s, e)), rep(0, e-s)))) 
 						p <- s + floor((e - s)/2) + offset
 					else if(e-s > 1){
-						p <- which(diff(IRanges::window(x, s, e-1)) >= 0 &  
-										diff(IRanges::window(x, s+1, e)) <= 0) + s + offset
+						p <- which(diff(window(x, s, e-1)) >= 0 &  
+										diff(window(x, s+1, e)) <= 0) + s + offset
 						if(x[s] > x[s + 1]) p <- c(s + offset, p)
 						if(x[e] > x[e - 1]) p <- c(p, e + offset)
 						drop <- which(diff(p) == 1)
@@ -377,7 +377,7 @@ getBindLen <- function(data, bind, support, summary=median, verbose=FALSE, plot=
 	if(length(bind) == 1){
 		bindLen <- bind
 		#supLen <- which.max(bindSpline$y[(bind + min(support)):(bind + max(support)) + 1]) + min(support) - 1
-		supPeak <- which.max(IRanges::window(bindSpline$y, bindLen + 2*min(support),
+		supPeak <- which.max(window(bindSpline$y, bindLen + 2*min(support),
 						bindLen + 2*max(support) + 1)) + bindLen + 2*min(support) - 1
 		supLen <- round((supPeak - bindLen) * 0.5)
 		bindPeak <- supPeak   ## need only location of first peak 
@@ -386,17 +386,17 @@ getBindLen <- function(data, bind, support, summary=median, verbose=FALSE, plot=
 	else{
 		if(length(support) == 1){
 			supLen <- support
-			bindPeak <- which.max(IRanges::window(bindSpline$y, supLen + min(bind), 
+			bindPeak <- which.max(window(bindSpline$y, supLen + min(bind), 
 									supLen + max(bind) + 1)) +	min(bind) + supLen -1 
 			bindLen <- bindPeak - 2*supLen
 			supPeak <- bindPeak   ## need only location of first peak
 			if(verbose) message("Estimated length of binding site: ", bindLen)
 		}
 		else{
-			bindPeak <- which.max(IRanges::window(bindSpline$y, support[1] + bind[1],
+			bindPeak <- which.max(window(bindSpline$y, support[1] + bind[1],
 							support[2] + bind[2]+1)) + bind[1] + support[1] - 1
 			if(!missing(support) && length(support) > 1){
-				supLen <- which.max(IRanges::window(bindSpline$y, 2*bindPeak+support[1],
+				supLen <- which.max(window(bindSpline$y, 2*bindPeak+support[1],
 								2*bindPeak+support[2]+1)) +	support[1] - 1 
 				bindLen <- bindPeak - 2*supLen
 				supPeak <- 2*bindPeak + supLen
