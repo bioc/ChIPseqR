@@ -221,8 +221,8 @@ windowCounts <- function(reads, window=1000, shift=500, method=sum){
 ## convert list of genome coordinates into gff format
 ## pos: named list with start positions for each chromosome
 pos2gff <- function(pos, method, feature, len, strand, score, name){
-	total <- sum(IRanges::elementLengths(pos))
-	chr <- rep(names(pos), times = IRanges::elementLengths(pos))
+	total <- sum(S4Vectors::elementNROWS(pos))
+	chr <- rep(names(pos), times = S4Vectors::elementNROWS(pos))
 	start <- unlist(pos, use.names=FALSE)
 		
 	method <- rep(method, length.out=total)

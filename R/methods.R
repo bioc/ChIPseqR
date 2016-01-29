@@ -296,14 +296,14 @@ setMethod("chrLength", "ReadCounts", definition=function(x, subset){
 )
 
 setMethod("chrLength", "RLEReadCounts", definition=function(x, subset){
-			len <- sapply(x, IRanges::elementLengths)[1, ]
+			len <- sapply(x, S4Vectors::elementNROWS)[1, ]
 			if(!missing(subset)) len <- len[subset]
 			len
 		} 
 )
 
 setMethod("chrLength", "BindScore", definition=function(x, subset){
-			len <- IRanges::elementLengths(score(x)) + 2*support(x) + binding(x)
+			len <- S4Vectors::elementNROWS(score(x)) + 2*support(x) + binding(x)
 			if(!missing(subset)) len <- len[subset]
 			len
 		} 
@@ -353,7 +353,7 @@ setMethod("length<-", "BindScore",
 ## convert to data.frame
 setMethod("as.data.frame", c(x="BindScore"),
 		definition=function(x, ...){
-			chr <- rep(names(x), times=IRanges::elementLengths(peaks(x)))
+			chr <- rep(names(x), times=S4Vectors::elementNROWS(peaks(x)))
 			pos <- c(peaks(x), recursive=TRUE)
 			peakScores <- c(mapply(function(y, i, offset) as.numeric(y[i - offset]),  score(x), peaks(x), 
 							MoreArgs=list(support(x) + ceiling(binding(x)/2)), SIMPLIFY=FALSE), 
@@ -488,7 +488,7 @@ setMethod("decompress", "RleList",
 			## simplify into matrix or vector if possible
 			if(simplify & length(result) == 1) result <- result[[1]]
 			else if(simplify & all.equal(class, rep(class[1], length(class)), check.attributes=FALSE) & 
-					max(abs(diff(IRanges::elementLengths(result)))) == 0){
+					max(abs(diff(S4Vectors::elementNROWS(result)))) == 0){
 				result <- do.call(cbind, result)
 			}
 			
