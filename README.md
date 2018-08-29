@@ -15,6 +15,7 @@ are available through [Bioconductor](http://bioconductor.org/). Use the *BiocIns
 package and its dependencies from within R.
 
 ```r
-source("http://bioconductor.org/biocLite.R")
-biocLite("ChIPseqR")
+if (!requireNamespace("BiocManager", quietly=TRUE))
+    install.packages("BiocManager")
+BiocManager::install("ChIPseqR")
 ```
