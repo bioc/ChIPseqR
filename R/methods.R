@@ -370,7 +370,7 @@ setMethod("as.data.frame", c(x="BindScore"),
 							MoreArgs=list(support(x) + ceiling(binding(x)/2)), SIMPLIFY=FALSE), 
 					recursive=TRUE)
 			
-			df <- data.frame(chromosome=chr, position=pos, score=peakScores, pvalue=peakPval)
+			df <- data.frame(chromosome=chr, position=pos, score=peakScores, pvalue=peakPval, stringsAsFactors = TRUE)
 			if(nrow(df) > 0) rownames(df) <- 1:nrow(df)
 			
 			df
