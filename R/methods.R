@@ -58,6 +58,14 @@ setMethod("strandPileup", "data.frame",
 			## but imposes strict requirements on column names.
 			requiredNames <- c("chromosome", "start", "end", "strand")
 			
+			## Chromosome names should be stored as factor
+			if(!"chromosome" %in% names(aligned)) {
+			  stop("Chromosome names are missing.")
+			}
+			if(!is.factor(aligned[["chromosome"]])) {
+			  aligned[["chromosome"]] <- as.factor(aligned[["chromosome"]])
+			}
+			
 			## need names for chrLen
 			if(is.null(names(chrLen))) names(chrLen) <- levels(aligned$chromosome)
 			
