@@ -26,7 +26,7 @@
   \item{plot}{If this is \code{TRUE} (the default) read coverage is plotted for all chromosomes.}
   \item{ask}{Logical. Setting this to \code{TRUE} causes the system to wait for user input before displaying a new plot.
   See \code{\link[grDevices:devAskNewPage]{devAskNewPage}}.}
-  \item{\dots}{Further arguments to \code{\link[IRanges:coverage]{coverage}}.}
+  \item{\dots}{Further arguments to \code{\link[IRanges:coverage-methods]{coverage}}.}
 }
 \details{
   The method for \code{data.frame} requires the column names to follow a strict naming scheme. Required columns are
@@ -43,7 +43,7 @@
 }
 \author{Peter Humburg}
 
-\seealso{\code{\link[IRanges:coverage]{coverage}}, \code{\link[ShortRead:AlignedRead]{AlignedRead}}, 
+\seealso{\code{\link[IRanges:coverage-methods]{coverage}}, \code{\link[ShortRead:AlignedRead]{AlignedRead}}, 
 \code{\link{callBindingSites}}}
 \examples{
 	## generate some very simple artificial read data
